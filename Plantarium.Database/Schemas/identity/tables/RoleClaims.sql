@@ -1,0 +1,23 @@
+﻿CREATE TABLE [identity].[RoleClaims](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[RoleId] [uniqueidentifier] NOT NULL,
+	[ClaimType] [nvarchar](max) NULL,
+	[ClaimValue] [nvarchar](max) NULL,
+    CONSTRAINT [PK_RoleClaims] PRIMARY KEY CLUSTERED ([Id] ASC)
+    WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+ALTER TABLE [identity].[RoleClaims]  WITH CHECK ADD  CONSTRAINT [FK_RoleClaims_Roles_RoleId] FOREIGN KEY([RoleId])
+REFERENCES [identity].[Roles] ([Id])
+ON DELETE CASCADE
+
+GO
+
+ALTER TABLE [identity].[RoleClaims] CHECK CONSTRAINT [FK_RoleClaims_Roles_RoleId]
+
+GO
+
+CREATE NONCLUSTERED INDEX [IX_RoleClaims_RoleId] ON [identity].[RoleClaims] ([RoleId] ASC)
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
