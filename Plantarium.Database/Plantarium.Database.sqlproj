@@ -66,6 +66,7 @@
   <ItemGroup>
     <Build Include="Schemas\identity\tables\RoleClaims.sql" />
     <Build Include="Schemas\identity\identity.sql" />
+    <Build Include="Schemas\dbo\Users.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schemas\identity\tables\Roles.sql" />
