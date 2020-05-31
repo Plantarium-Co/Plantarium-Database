@@ -183,3 +183,21 @@ ON DELETE CASCADE
 GO
 
 ALTER TABLE [identity].[UserTokens] CHECK CONSTRAINT [FK_UserTokens_Users_UserId]
+
+GO
+
+CREATE TABLE [dbo].[User]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL , 
+    [IdentityId] UNIQUEIDENTIFIER NOT NULL, 
+    [GivenName] NVARCHAR(50) NOT NULL, 
+    [LastName] NVARCHAR(50) NOT NULL, 
+    [CreatedAt] DATETIME NOT NULL DEFAULT (GETUTCDATE()), 
+    [UdatedAt] DATETIME NOT NULL DEFAULT (GETUTCDATE()), 
+    CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED ([Id] ASC), 
+    CONSTRAINT [FK_Users_Users_IdentityId] FOREIGN KEY ([IdentityId]) REFERENCES [identity].[Users]([Id]) 
+)
+
+GO
+
+CREATE UNIQUE NONCLUSTERED INDEX [UQ_User_IdentityId] ON [dbo].[User] ([IdentityId])
