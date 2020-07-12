@@ -186,18 +186,30 @@ ALTER TABLE [identity].[UserTokens] CHECK CONSTRAINT [FK_UserTokens_Users_UserId
 
 GO
 
-CREATE TABLE [dbo].[User]
+CREATE TABLE [dbo].[Users]
 (
-	[Id] UNIQUEIDENTIFIER NOT NULL , 
+	[Id] UNIQUEIDENTIFIER NOT NULL DEFAULT (NEWSEQUENTIALID()), 
     [IdentityId] UNIQUEIDENTIFIER NOT NULL, 
     [GivenName] NVARCHAR(50) NOT NULL, 
     [LastName] NVARCHAR(50) NOT NULL, 
     [CreatedAt] DATETIME NOT NULL DEFAULT (GETUTCDATE()), 
     [UdatedAt] DATETIME NOT NULL DEFAULT (GETUTCDATE()), 
-    CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED ([Id] ASC), 
+    CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED ([Id] ASC), 
     CONSTRAINT [FK_Users_Users_IdentityId] FOREIGN KEY ([IdentityId]) REFERENCES [identity].[Users]([Id]) 
 )
 
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX [UQ_User_IdentityId] ON [dbo].[User] ([IdentityId])
+CREATE UNIQUE NONCLUSTERED INDEX [UQ_User_IdentityId] ON [dbo].[Users] ([IdentityId])
+
+GO
+
+CREATE PROCEDURE [dbo].[sp_CreateUser]
+	@identityId UNIQUEIDENTIFIER,
+	@givenName NVARCHAR(50),
+	@lastName NVARCHAR(50)
+AS
+	SET NOCOUNT ON
+	INSERT INTO [dbo].[Users] (IdentityId, GivenName, LastName)
+	VALUES (@identityId, @givenName, @lastName)
+RETURN 0
