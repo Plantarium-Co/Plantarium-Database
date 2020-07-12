@@ -61,12 +61,16 @@
     <Folder Include="Schemas" />
     <Folder Include="Schemas\dbo" />
     <Folder Include="Schemas\identity" />
-    <Folder Include="Schemas\identity\tables" />
+    <Folder Include="Schemas\identity\Tables" />
+    <Folder Include="Schemas\dbo\Programmability" />
+    <Folder Include="Schemas\dbo\Tables" />
+    <Folder Include="Schemas\dbo\Programmability\Stored Procedures" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schemas\identity\tables\RoleClaims.sql" />
     <Build Include="Schemas\identity\identity.sql" />
-    <Build Include="Schemas\dbo\Users.sql" />
+    <Build Include="Schemas\dbo\Tables\Users.sql" />
+    <Build Include="Schemas\dbo\Programmability\Stored Procedures\sp_CreateUser.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schemas\identity\tables\Roles.sql" />
